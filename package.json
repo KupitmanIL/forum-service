@@ -4,13 +4,19 @@
   "description": "Forum service",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^5.1.0"
+    "start": "node server.js",
+    "dev": "node --watch --env-file=.env server.js"
   },
   "keywords": [],
   "author": "Ilia",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module",
+  "dependencies": {
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2",
+    "nodemon": "^3.1.14"
+  }
 }

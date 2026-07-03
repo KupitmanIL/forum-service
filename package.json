@@ -1,0 +1,13 @@
+{
+  "name": "forum-service",
+  "version": "1.0.0",
+  "description": "Forum service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ilia",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -10,6 +10,7 @@ import {
     getPostsByPeriod,
     getPostsByAuthor,
 } from '../controllers/post.controller.js';
+
 import validate from "../middlewares/validation.middleware.js";
 
 const router = Router();

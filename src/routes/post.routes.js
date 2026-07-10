@@ -11,7 +11,7 @@ import {
     getPostsByAuthor,
 } from '../controllers/post.controller.js';
 
-import validate from "../middlewares/validation.middleware.js";
+import validate from "../middlewares/validator.middleware.js";
 
 const router = Router();
 

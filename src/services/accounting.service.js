@@ -24,7 +24,7 @@ export const deleteRole = async (login, role) => {
 //TODO
 }
 
-export const changePassword = async (login, oldPassword, newPassword) => {
+export const changePassword = async (login, newPassword) => {
 //TODO
 }
 

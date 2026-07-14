@@ -1,23 +1,25 @@
-import {Router} from 'express';
+import {Router} from "express";
 import {
-    register,
-    login,
-    deleteUser,
-    updateUser,
     addRole,
     deleteRole,
+    deleteUser,
+    login,
+    register,
     changePassword,
-    getUser
-} from '../controllers/accounting.controller.js';
+    getUser,
+    updateUser
+} from "../controllers/userAccount.controller.js";
+import validate from "../middlewares/validator.middleware.js";
+
 
 const router = Router();
 
-router.post('/register', register);
+router.post('/register',validate('register'), register);
 router.post('/login', login);
 router.delete('/user/:login', deleteUser);
-router.patch('/user/:login', updateUser);
-router.patch('/user/:login/role/:role', addRole);
-router.delete('/user/:login/role/:role', deleteRole);
+router.patch('/user/:login',validate ('updateUser') ,updateUser);
+router.patch('/user/:login/role/:role',validate ('changeRole' ,'params') , addRole);
+router.delete('/user/:login/role/:role',validate ('changeRole' ,'params') , deleteRole);
 router.patch('/password', changePassword);
 router.get('/user/:login', getUser);
 

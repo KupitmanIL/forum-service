@@ -1,3 +1,3 @@
 export const USER = 'USER'
 export const MODERATOR = 'MODERATOR'
-export const ADMINISTRATOR = 'ADMINISTRATOR'
+export const ADMIN = 'ADMINISTRATOR'

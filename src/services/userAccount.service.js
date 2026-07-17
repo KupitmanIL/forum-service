@@ -25,8 +25,6 @@ export const updateUser = async (login, updateData) => {
     return userAccount;
 }
 
-export const changeRole = async (login, role) => {}
-
 export const changeRoles = async (login, role, isAddRole) => {
     role = role.toUpperCase();
     let userAccount;
@@ -36,12 +34,18 @@ export const changeRoles = async (login, role, isAddRole) => {
         userAccount = await userAccountRepository.removeRole(login, role);
     }
     if (!userAccount) {
-        throw new Error(`User with login ${login} not found`);
+        throw new Error(`User with login '${login}' not found`);
     }
-    return {
-        login: userAccount.login,
-        roles: userAccount.roles
-    };
+    return userAccount;
+
+}
+
+export const changePassword = async (login, newPassword) => {
+    const userAccount = await userAccountRepository.changePassword(login, newPassword);
+    if (!userAccount) {
+        throw new Error(`User with login '${login}' not found`);
+    }
+    return userAccount;
 }
 
 export const getUser = async (login) => {

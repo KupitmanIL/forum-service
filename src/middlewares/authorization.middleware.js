@@ -8,4 +8,3 @@ export const isOwnerOrHasRole = (paramName, role ) => (req, res, next) => {
     return isOwner || hasRole ? next() : res.status(403).json({message: 'Access denied'});
 }
 
-export const isPostOwner = paramName => (req, res, next) => req.params[paramName] === req.principal.login ? next() : res.status(403).json({message: 'Access denied'});

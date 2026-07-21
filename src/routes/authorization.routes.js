@@ -12,6 +12,6 @@ router.patch('/account/user/:user', isOwner('user'));
 router.delete('/account/user/:login', isOwnerOrHasRole('login', ADMIN));
 
 router.post('/forum/post/:author', isOwner('author'));
-router.post('/forum/post/:id/comment/:author', isOwner('author'));
+router.patch('/forum/post/:id/comment/:commenter', isOwner('commenter'));
 
 export default router;

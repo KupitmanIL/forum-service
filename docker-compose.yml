@@ -1,0 +1,29 @@
+services:
+  view:
+    image: kupitmanilia/accounting
+    container_name: accounting
+    ports:
+      - "80:80"
+
+  forum-service:
+    image: kupitmanilia/forum-service
+    container_name: forum-service
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - DB_NAME=java63
+      - MONGO_URI=${DOCKER_MONGO_URI}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    depends_on:
+      - db
+
+  db:
+    image: mongo:8.0.6
+    volumes:
+      - mongo_volume:/data/db
+
+volumes:
+  mongo_volume:
+    external: true
+    name: mongo_volume

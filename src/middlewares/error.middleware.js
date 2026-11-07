@@ -24,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
         "timestamp": new Date().toISOString(),
         "status": 500,
         "error": "Internal Server Error",
-        "message": err.message,
+        "message": "An unexpected server error occurred",
         "path": req.path
     });
 }

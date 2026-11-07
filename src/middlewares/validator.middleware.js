@@ -14,21 +14,24 @@ const schemas = {
         title: Joi.string(),
         content: Joi.string(),
         tags: Joi.array().items(Joi.string())
-    }),
+    }).min(1),
     dateFormatPeriod: Joi.object({
         dateFrom: Joi.date().iso().required(),
         dateTo: Joi.date().iso().required().greater(Joi.ref('dateFrom'))
     }),
     register: Joi.object({
         login: Joi.string().required(),
-        password: Joi.string().required(),
+        password: Joi.string().min(8).required(),
         firstName: Joi.string().required(),
         lastName: Joi.string().required()
+    }),
+    changePassword: Joi.object({
+        password: Joi.string().min(8).required()
     }),
     updateUser: Joi.object({
         firstName: Joi.string(),
         lastName: Joi.string()
-    }),
+    }).min(1),
     changeRoles: Joi.object({
         login: Joi.string().required(),
         role: Joi.string()

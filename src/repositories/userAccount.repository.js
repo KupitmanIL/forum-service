@@ -4,7 +4,21 @@ export const addUser = async (user) => UserAccount.create(user);
 
 export const removeUser = async (login) => UserAccount.findByIdAndDelete(login, {returnDocument: 'after'}).exec();
 
-export const updateUser = async (login, updateData) => UserAccount.findByIdAndUpdate(login, updateData, {returnDocument: 'after'}).exec();
+export const updateUser = async (login, updateData) => {
+    const {firstName, lastName} = updateData;
+    const allowedUpdates = {};
+    if (firstName !== undefined) {
+        allowedUpdates.firstName = firstName;
+    }
+    if (lastName !== undefined) {
+        allowedUpdates.lastName = lastName;
+    }
+    return UserAccount.findByIdAndUpdate(
+        login,
+        {$set: allowedUpdates},
+        {returnDocument: 'after', runValidators: true}
+    ).exec();
+}
 
 export const findUser = async (login) => UserAccount.findById(login).exec();
 
@@ -14,6 +28,9 @@ export const removeRole = async (login, role) => UserAccount.findByIdAndUpdate(l
 
 export const changePassword = async (login, newPassword) => {
     const userAccount = await UserAccount.findById(login).exec();
+    if (!userAccount) {
+        return null;
+    }
     userAccount.password = newPassword;
     return userAccount.save();
 }

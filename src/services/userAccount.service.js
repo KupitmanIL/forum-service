@@ -4,8 +4,10 @@ export const register = async (user) => {
     try {
         return await userAccountRepository.addUser(user);
     } catch (e) {
-        console.log(e);
-        throw new Error('User already exists');
+        if (e.code === 11000) {
+            throw new Error('User already exists');
+        }
+        throw e;
     }
 }
 

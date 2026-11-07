@@ -1,7 +1,14 @@
 import UserAccount from '../models/userAccount.model.js';
 
 const authentication = async (req, res, next) => {
-    if (req.path !== '/account/register' && !req.path.startsWith('/forum/posts')) {
+    const isPublicRegistration =
+        req.method === 'POST' && req.path === '/account/register';
+
+    const isPublicPosts =
+        req.method === 'GET' &&
+        (req.path === '/forum/posts' || req.path.startsWith('/forum/posts/'));
+
+    if (!isPublicRegistration && !isPublicPosts) {
         const token = req.headers.authorization;
         if (!token || !token.startsWith('Basic ')) {
             return res.status(401).json({
@@ -9,8 +16,15 @@ const authentication = async (req, res, next) => {
             });
         }
         const base64Credentials = token.split(' ')[1];
-        const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-        const [login, password] = credentials.split(':');
+        const credentials = Buffer.from(base64Credentials, 'base64').toString('utf8');
+        const separatorIndex = credentials.indexOf(':');
+        if (separatorIndex === -1) {
+            return res.status(401).json({
+                message: 'Invalid credentials'
+            });
+        }
+        const login = credentials.slice(0, separatorIndex);
+        const password = credentials.slice(separatorIndex + 1);
         const userAccount = await UserAccount.findById(login).exec();
         if (!userAccount || !(await userAccount.comparePassword(password))) {
             return res.status(401).json({
